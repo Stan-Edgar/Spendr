@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --dark: #131517;
+    --gray: rgb(58, 58, 58);
+    --green: #275A53;
+}
+
+@font-face {
+    font-family: Satoshi;
+    src: url(Font/SATOSHI-REGULAR.OTF);
+}
+
+body {
+display: flex;
+background-color: #131517;
+color: white;
+font-family: Satoshi;
+}
+
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    height: 100vh;
+    row-gap: 1rem;
+    padding: 4rem 1rem;
+    border-right: 1px solid white;
+    position: sticky;
+    top: 0;
+}
+
+.tab {
+    display: flex;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+    width: 16rem;
+    height: 3rem;
+    padding: 0.5rem;
+    align-items: center;
+    column-gap: 0.4rem;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background-color: rgb(58, 58, 58);
+    border: 0;
+}
+
+.tab p {
+    font-size: 1.2rem;
+}
+
+.tab img {
+    width: 2.4rem;
+}
+
+.main {
+    display: flex;
+    padding: 4rem 5rem 4rem 3rem;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.4rem;
+    color: white;
+}
+
+.bottom {
+    display: flex;
+    align-items: center;
+    column-gap: 0.6rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    width: 12rem;
+    height: 6rem;
+    justify-content: center;
+    padding: 0 2rem;
+    border-radius: 0.6rem;
+    row-gap: 0.2rem;
+    background-color: white;
+    color: black;
+}
+
+.stat span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.sav {
+    background-color: var(--green);
+    color: white;
+}
+
+.exp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 0.6rem;
+    background-color: white;
+    color: black;
+    margin-left: 4rem;
+}
+
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.4rem;
+    padding: 4rem 2rem;
+}
+
+.analytics {
+    display: flex;
+    width: 18rem;
+    height: 22rem;
+    background-color: white;
+    border-radius: 1.2rem;
+}
