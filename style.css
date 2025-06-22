@@ -103,7 +103,7 @@ font-family: Satoshi;
     color: white;
 }
 
-.exp {
+#add {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,10 +136,25 @@ font-family: Satoshi;
     display: flex;
     flex-direction: column;
     width: 37rem;
+    height: 9rem;
     background-color: white;
     padding: 0.8rem 2rem;
     border-radius: 0.5rem;
-    row-gap: 2rem;
+    row-gap: 1.2rem;
+
+    position: fixed;
+    opacity: 0;
+    top: 40vh;
+    left: 24vw;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: all 0.3 ease-in-out;
+}
+
+.view.open {
+    opacity: 1;
+    z-index: 999;
 }
 
 .view select {

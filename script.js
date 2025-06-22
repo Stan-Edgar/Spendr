@@ -1,8 +1,18 @@
 const dropdown = document.querySelector('#type');
 const quant = document.querySelector('#qnt');
 
-const add = document.querySelector('#add');
+const view = document.querySelector('.view')
+
+const btn = document.querySelector('#add');
 const submit = document.querySelector('#submit');
+
+add.addEventListener('click', function() {
+    view.classList.add("open");
+})
+
+submit.addEventListener('click', () => {
+    view.classList.remove('open');
+})
 
 function checkAllowance(value) {
 if(value === "allowance") {
