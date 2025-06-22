@@ -43,6 +43,19 @@
                 </div>
             </div>
         </div>
+        <div class="view">
+            <select name="type" id="type">
+                    <option value="allowance">Allowance</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="food">Food</option>
+                    <option value="junk">Junk</option>
+            </select>
+            <div class="fields">
+                <label for="price">Price: <input type="number" name="price" id="price" placeholder="$0.00" min="0"></label>
+                <label for="qnt">Quantity: <input type="number" name="quantity" id="qnt" placeholder="1" min="1"></label>
+            </div>
+            <div id="submit">Submit</div>
+        </div>
     </div>
 
     <div class="wrapper">
@@ -50,6 +63,7 @@
         <div class="analytics"></div>
     </div>
 
+    <script src="script.js"></script>
 
 </body>
 </html>

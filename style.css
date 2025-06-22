@@ -62,7 +62,9 @@ font-family: Satoshi;
 
 .main {
     display: flex;
+    flex-direction: column;
     padding: 4rem 5rem 4rem 3rem;
+    row-gap: 4rem;
 }
 
 .dashboard {
@@ -128,4 +130,42 @@ font-family: Satoshi;
     height: 22rem;
     background-color: white;
     border-radius: 1.2rem;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    width: 37rem;
+    background-color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    row-gap: 2rem;
+}
+
+.view select {
+    width: 8rem;
+}
+
+.fields {
+    display: flex;
+    column-gap: 3rem;
+    color: black;
+}
+
+.fields input {
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--gray);
+}
+
+#submit {
+    display: flex;
+    width: 8rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    background-color: var(--green);
+    align-self: end;
+    cursor: pointer;
 }
