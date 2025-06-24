@@ -8,38 +8,42 @@ const submit = document.querySelector('#submit');
 
 const aEdit = document.querySelector('#aEdit');
 const aAmount = document.querySelector('.AA');
+let all = 0;
+
+const price = document.querySelector('#price');
+const expense = document.querySelector('.exp');
+
+const savings = document.querySelector('.saving');
+
+let accumulatedExp = 0;
 
 aEdit.addEventListener('click', () => {
     const ans = prompt("Enter Allowance Amount: ");
     aAmount.innerHTML = `$${ans}`;
+    all = ans;
 })
 
 add.addEventListener('click', function() {
     view.classList.add("open");
+
 })
 
 submit.addEventListener('click', () => {
+
+    accumulatedExp += parseInt(price.value);
+    expense.innerHTML = `$${accumulatedExp}`;
+
+    let result = (all - accumulatedExp);
+    savings.innerHTML = `$${result}`
+
+
     view.classList.remove('open');
 })
 
-function checkAllowance(value) {
-if(value === "allowance") {
-    quant.placeholder = "";
-    quant.style.backgroundColor = "#8e8e8e";
-    quant.setAttribute("disabled", "");
-} else {
-    quant.placeholder = "1";
-    quant.style.backgroundColor = "white";
-    quant.removeAttribute("disabled");
-}
-}
 
-checkAllowance(dropdown.value);
 
 
 dropdown.addEventListener('change', () => {
-
-checkAllowance(dropdown.value);
 
 console.log("change to: ", dropdown.value); 
 
