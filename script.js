@@ -6,6 +6,14 @@ const view = document.querySelector('.view')
 const btn = document.querySelector('#add');
 const submit = document.querySelector('#submit');
 
+const aEdit = document.querySelector('#aEdit');
+const aAmount = document.querySelector('.AA');
+
+aEdit.addEventListener('click', () => {
+    const ans = prompt("Enter Allowance Amount: ");
+    aAmount.innerHTML = `$${ans}`;
+})
+
 add.addEventListener('click', function() {
     view.classList.add("open");
 })

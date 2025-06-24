@@ -116,6 +116,16 @@ font-family: Satoshi;
     margin-left: 4rem;
 }
 
+.allow div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.allow svg {
+    width: 1.2rem;
+    cursor: pointer;
+}
 
 .wrapper {
     display: flex;
