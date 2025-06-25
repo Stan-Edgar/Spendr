@@ -146,7 +146,7 @@ font-family: Satoshi;
     display: flex;
     flex-direction: column;
     width: 37rem;
-    height: 9rem;
+    height: 10.5rem;
     background-color: white;
     padding: 0.8rem 2rem;
     border-radius: 0.5rem;
@@ -162,6 +162,7 @@ font-family: Satoshi;
     transition: all 0.3 ease-in-out;
 }
 
+
 .view.open {
     opacity: 1;
     z-index: 999;
@@ -173,14 +174,21 @@ font-family: Satoshi;
 
 .fields {
     display: flex;
-    column-gap: 3rem;
+    column-gap: 2rem;
     color: black;
 }
 
 .fields input {
+    width: 10rem;
+    box-sizing: border-box;
     padding: 0.2rem 0.6rem;
     border-radius: 0.3rem;
     border: 1px solid var(--gray);
+}
+
+.fields input.invalid {
+    border: 2px solid red;
+    
 }
 
 #submit {

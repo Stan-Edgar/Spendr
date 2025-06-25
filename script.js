@@ -28,19 +28,36 @@ add.addEventListener('click', function() {
 
 })
 
-submit.addEventListener('click', () => {
+function inputValidation() {
+    let parsePrice = parseInt(price.value);
+    console.log(parsePrice);
 
-    accumulatedExp += parseInt(price.value);
+    if(isNaN(parsePrice)) {
+        quant.classList.add('invalid');
+        price.classList.add('invalid');
+        return  alert("Please enter a valid number!");
+    } else {
+    console.log("Why tf am I still running?!?!")
+    accumulatedExp += parsePrice;
     expense.innerHTML = `$${accumulatedExp}`;
 
     let result = (all - accumulatedExp);
     savings.innerHTML = `$${result}`
 
+    // Removing invalid CSS propertied if(invalid)
+    quant.classList.remove('invalid');
+    price.classList.remove('invalid');  
 
+    // Making the module disappear
     view.classList.remove('open');
+    }
+}
+
+submit.addEventListener('click', () => {
+
+    inputValidation();
+    
 })
-
-
 
 
 dropdown.addEventListener('change', () => {
