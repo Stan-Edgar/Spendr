@@ -1,26 +1,37 @@
 const dropdown = document.querySelector('#type');
 const quant = document.querySelector('#qnt');
 
-const view = document.querySelector('.view')
+const view = document.querySelector('.view');
+const main = document.querySelector('.main');
+const rWrapper = document.querySelector('.rWrapper');
 
 const btn = document.querySelector('#add');
 const submit = document.querySelector('#submit');
 
 const aEdit = document.querySelector('#aEdit');
 const aAmount = document.querySelector('.AA');
-let all = 0;
+
 
 const price = document.querySelector('#price');
 const expense = document.querySelector('.exp');
-
 const savings = document.querySelector('.saving');
 
+
+let all = 0;
 let accumulatedExp = 0;
+
+function savingsCalc() {
+    let result = (all - accumulatedExp);
+    savings.innerHTML = `$${result}`;
+}
 
 aEdit.addEventListener('click', () => {
     const ans = prompt("Enter Allowance Amount: ");
     aAmount.innerHTML = `$${ans}`;
     all = ans;
+
+    savingsCalc();
+
 })
 
 add.addEventListener('click', function() {
@@ -37,12 +48,11 @@ function inputValidation() {
         price.classList.add('invalid');
         return  alert("Please enter a valid number!");
     } else {
-    console.log("Why tf am I still running?!?!")
+    console.log("Successful Validation")
     accumulatedExp += parsePrice;
     expense.innerHTML = `$${accumulatedExp}`;
 
-    let result = (all - accumulatedExp);
-    savings.innerHTML = `$${result}`
+    savingsCalc();
 
     // Removing invalid CSS propertied if(invalid)
     quant.classList.remove('invalid');
@@ -56,6 +66,7 @@ function inputValidation() {
 submit.addEventListener('click', () => {
 
     inputValidation();
+    createReciept();
     
 })
 
@@ -67,5 +78,35 @@ console.log("change to: ", dropdown.value);
 })
 
 
+function createReciept() {
 
-console.log(dropdown.value);
+// Create elements
+let reciept = document.createElement('div');
+let icon = document.createElement('img');
+let title = document.createElement("h1");
+let datePara = document.createElement('p');
+let pricePara = document.createElement('p');
+
+// Create formatted Date
+let reDate = new Date();
+let formattedDate = reDate.toLocaleDateString('en-GB');
+
+// Add classNames
+reciept.className = 'reciept';
+
+// Change values
+datePara.textContent = `${formattedDate}`;
+pricePara.innerText = `Cost: $${price.value}`;
+title.innerText = `${dropdown.value}`;
+
+// Append all the elements together
+reciept.appendChild(icon);
+reciept.appendChild(title);
+reciept.appendChild(datePara);
+reciept.appendChild(pricePara);
+
+rWrapper.appendChild(reciept);
+
+
+}
+
