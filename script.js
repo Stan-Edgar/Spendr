@@ -19,9 +19,13 @@ const savings = document.querySelector('.saving');
 
 let all = 0;
 let accumulatedExp = 0;
+let result = (all - accumulatedExp);
+
+localStorage.setItem('Allowance',JSON.stringify(all));
+localStorage.setItem("Expense", JSON.stringify(accumulatedExp));
+localStorage.setItem("Savings", JSON.stringify(all - accumulatedExp));
 
 function savingsCalc() {
-    let result = (all - accumulatedExp);
     savings.innerHTML = `$${result}`;
 }
 
@@ -36,7 +40,6 @@ aEdit.addEventListener('click', () => {
 
 add.addEventListener('click', function() {
     view.classList.add("open");
-
 })
 
 function inputValidation() {
