@@ -16,23 +16,45 @@ const price = document.querySelector('#price');
 const expense = document.querySelector('.exp');
 const savings = document.querySelector('.saving');
 
+function RenderItems() {
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
 
-let all = 0;
-let accumulatedExp = 0;
-let result = (all - accumulatedExp);
+        console.log(`${key}: ${value}`);
+        if(key === "Expense") {
+            expense.innerText = `$${value}`;
+        } else if (key === "Allowance") {
+            aAmount.innerText = `$${value}`;
+        } else if (key === "Savings") {
+            savings.innerText = `$${value}`;
+        }
+        
+    }
+};
 
-localStorage.setItem('Allowance',JSON.stringify(all));
-localStorage.setItem("Expense", JSON.stringify(accumulatedExp));
-localStorage.setItem("Savings", JSON.stringify(all - accumulatedExp));
+RenderItems();
+
+let all = parseInt(localStorage.getItem('Allowance')) || 0;
+let accumulatedExp = parseInt(localStorage.getItem("Expense")) || 0;
+
+let storedSavings = localStorage.getItem('Savings');
+let savCalc = storedSavings !== null
+  ? parseInt(storedSavings)
+  : (all - accumulatedExp);
+
+
 
 function savingsCalc() {
-    savings.innerHTML = `$${result}`;
+    savings.innerHTML = `$${savCalc}`;
+    localStorage.setItem("Savings", (all - accumulatedExp));
 }
 
 aEdit.addEventListener('click', () => {
     const ans = prompt("Enter Allowance Amount: ");
     aAmount.innerHTML = `$${ans}`;
     all = ans;
+    localStorage.setItem('Allowance', ans);
 
     savingsCalc();
 
@@ -53,6 +75,7 @@ function inputValidation() {
     } else {
     console.log("Successful Validation")
     accumulatedExp += parsePrice;
+    console.log(typeof(accumulatedExp))
     expense.innerHTML = `$${accumulatedExp}`;
 
     savingsCalc();
@@ -70,6 +93,7 @@ submit.addEventListener('click', () => {
 
     inputValidation();
     createReciept();
+    localStorage.setItem("Expense", accumulatedExp);
     
 })
 
