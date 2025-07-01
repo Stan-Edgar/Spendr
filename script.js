@@ -16,24 +16,7 @@ const price = document.querySelector('#price');
 const expense = document.querySelector('.exp');
 const savings = document.querySelector('.saving');
 
-function RenderItems() {
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
 
-        console.log(`${key}: ${value}`);
-        if(key === "Expense") {
-            expense.innerText = `$${value}`;
-        } else if (key === "Allowance") {
-            aAmount.innerText = `$${value}`;
-        } else if (key === "Savings") {
-            savings.innerText = `$${value}`;
-        }
-        
-    }
-};
-
-RenderItems();
 
 let all = parseInt(localStorage.getItem('Allowance')) || 0;
 let accumulatedExp = parseInt(localStorage.getItem("Expense")) || 0;
@@ -46,7 +29,7 @@ let savCalc = storedSavings !== null
 
 
 function savingsCalc() {
-    savings.innerHTML = `$${savCalc}`;
+    savings.innerHTML = `$${(all - accumulatedExp)}`;
     localStorage.setItem("Savings", (all - accumulatedExp));
 }
 
@@ -66,16 +49,15 @@ add.addEventListener('click', function() {
 
 function inputValidation() {
     let parsePrice = parseInt(price.value);
-    console.log(parsePrice);
+
 
     if(isNaN(parsePrice)) {
         quant.classList.add('invalid');
         price.classList.add('invalid');
-        return  alert("Please enter a valid number!");
+        return alert("Please enter a valid number!");
     } else {
     console.log("Successful Validation")
     accumulatedExp += parsePrice;
-    console.log(typeof(accumulatedExp))
     expense.innerHTML = `$${accumulatedExp}`;
 
     savingsCalc();
@@ -87,12 +69,14 @@ function inputValidation() {
     // Making the module disappear
     view.classList.remove('open');
     }
+
+    createReciept();
+
 }
 
 submit.addEventListener('click', () => {
 
     inputValidation();
-    createReciept();
     localStorage.setItem("Expense", accumulatedExp);
     
 })
@@ -103,6 +87,10 @@ dropdown.addEventListener('change', () => {
 console.log("change to: ", dropdown.value); 
 
 })
+
+
+
+const receipts = JSON.parse(localStorage.getItem("habits")) || [];
 
 
 function createReciept() {
@@ -134,6 +122,35 @@ reciept.appendChild(pricePara);
 
 rWrapper.appendChild(reciept);
 
+// Create reciept variable
+let rec = {
+    Title: dropdown.value,
+    Expense: price.value,
+    Date: formattedDate
+};
+
+receipts.push(rec);
+localStorage.setItem("Reciepts", JSON.stringify(receipts));
+
 
 }
 
+
+function RenderItems() {
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+
+        console.log(`${key}: ${value}`);
+        if(key === "Expense") {
+            expense.innerText = `$${value}`;
+        } else if (key === "Allowance") {
+            aAmount.innerText = `$${value}`;
+        } else if (key === "Savings") {
+            savings.innerText = `$${value}`;
+        }
+        
+    }
+};
+
+RenderItems();
