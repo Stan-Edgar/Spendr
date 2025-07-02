@@ -68,9 +68,13 @@ function inputValidation() {
 
     // Making the module disappear
     view.classList.remove('open');
+
+    // Create the reciept
+     createReciept(dropdown.value, price.value);
+
     }
 
-    createReciept();
+   
 
 }
 
@@ -78,6 +82,7 @@ submit.addEventListener('click', () => {
 
     inputValidation();
     localStorage.setItem("Expense", accumulatedExp);
+    localStorage.setItem("Receipts", JSON.stringify(receipts));
     
 })
 
@@ -89,11 +94,13 @@ console.log("change to: ", dropdown.value);
 })
 
 
+// Reciepts array to retrieve in render
+const receipts = JSON.parse(localStorage.getItem("Receipts")) || [];
 
-const receipts = JSON.parse(localStorage.getItem("habits")) || [];
 
 
-function createReciept() {
+
+function createReciept(name, price) {
 
 // Create elements
 let reciept = document.createElement('div');
@@ -111,8 +118,8 @@ reciept.className = 'reciept';
 
 // Change values
 datePara.textContent = `${formattedDate}`;
-pricePara.innerText = `Cost: $${price.value}`;
-title.innerText = `${dropdown.value}`;
+pricePara.innerText = `Cost: $${price}`;
+title.innerText = `${name}`;
 
 // Append all the elements together
 reciept.appendChild(icon);
@@ -122,18 +129,24 @@ reciept.appendChild(pricePara);
 
 rWrapper.appendChild(reciept);
 
+// ⛔ Prevent duplicates (optional but smart)
+if (receipts.some(r => r.name === name)) {
+console.log("receipt already exists!");
+return;
+}
+
 // Create reciept variable
 let rec = {
-    Title: dropdown.value,
-    Expense: price.value,
+    Title: name,
+    Expense: price,
     Date: formattedDate
 };
 
 receipts.push(rec);
-localStorage.setItem("Reciepts", JSON.stringify(receipts));
 
 
 }
+
 
 
 function RenderItems() {
@@ -141,16 +154,26 @@ function RenderItems() {
         const key = localStorage.key(i);
         const value = localStorage.getItem(key);
 
-        console.log(`${key}: ${value}`);
         if(key === "Expense") {
             expense.innerText = `$${value}`;
         } else if (key === "Allowance") {
             aAmount.innerText = `$${value}`;
         } else if (key === "Savings") {
             savings.innerText = `$${value}`;
-        }
-        
+        } 
+    
     }
+
+
+    receipts.forEach(rec => {
+    view.innerHTML = "";
+    console.log('----------------------------------->')
+    createReciept(rec.Title, rec.Expense)
+    Object.keys(rec).forEach(key => {
+        console.log(`${key}: ${rec[key]}`)
+    });
+
+});
 };
 
 RenderItems();
