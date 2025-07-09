@@ -44,12 +44,14 @@ aEdit.addEventListener('click', () => {
 })
 
 add.addEventListener('click', function() {
+    console.log("Open View")
     view.classList.add("open");
 })
 
 function inputValidation() {
     let parsePrice = parseInt(price.value);
 
+    console.log('Inside InputValidation')
 
     if(isNaN(parsePrice)) {
         quant.classList.add('invalid');
@@ -70,7 +72,7 @@ function inputValidation() {
     view.classList.remove('open');
 
     // Create the reciept
-     createReciept(dropdown.value, price.value);
+     createReciept(dropdown.value, price.value, formattedDate);
 
     }
 
@@ -80,6 +82,7 @@ function inputValidation() {
 
 submit.addEventListener('click', () => {
 
+    console.log("SUBMIT")
     inputValidation();
     localStorage.setItem("Expense", accumulatedExp);
     localStorage.setItem("Receipts", JSON.stringify(receipts));
@@ -97,10 +100,14 @@ console.log("change to: ", dropdown.value);
 // Reciepts array to retrieve in render
 const receipts = JSON.parse(localStorage.getItem("Receipts")) || [];
 
+// Create formatted Date
+let reDate = new Date();
+let formattedDate = reDate.toLocaleDateString('en-GB');
 
 
+function createReciept(name, price, DATE) {
 
-function createReciept(name, price) {
+
 
 // Create elements
 let reciept = document.createElement('div');
@@ -109,15 +116,15 @@ let title = document.createElement("h1");
 let datePara = document.createElement('p');
 let pricePara = document.createElement('p');
 
-// Create formatted Date
-let reDate = new Date();
-let formattedDate = reDate.toLocaleDateString('en-GB');
+
 
 // Add classNames
 reciept.className = 'reciept';
 
+console.log("Phase Two");
+
 // Change values
-datePara.textContent = `${formattedDate}`;
+datePara.textContent = `${DATE}`;
 pricePara.innerText = `Cost: $${price}`;
 title.innerText = `${name}`;
 
@@ -139,14 +146,24 @@ return;
 let rec = {
     Title: name,
     Expense: price,
-    Date: formattedDate
+    Date: DATE
 };
+
+console.log("Phase Three");
 
 receipts.push(rec);
 
 
 }
 
+function resetDate(a) {
+
+    if (a !== formattedDate) {
+        console.log("This receipt is expired");
+        console.log("Deleting Now....")
+        return true
+    }
+}
 
 
 function RenderItems() {
@@ -166,9 +183,14 @@ function RenderItems() {
 
 
     receipts.forEach(rec => {
-    view.innerHTML = "";
+    rWrapper.innerHTML = "";
     console.log('----------------------------------->')
-    createReciept(rec.Title, rec.Expense)
+    if(resetDate(rec.Date)) {
+        return alert("Is this where everything goes to hell?")
+    } else {
+        createReciept(rec.Title, rec.Expense, rec.Date)
+    }
+    
     Object.keys(rec).forEach(key => {
         console.log(`${key}: ${rec[key]}`)
     });
