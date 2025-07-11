@@ -98,7 +98,7 @@ console.log("change to: ", dropdown.value);
 
 
 // Reciepts array to retrieve in render
-const receipts = JSON.parse(localStorage.getItem("Receipts")) || [];
+let receipts = JSON.parse(localStorage.getItem("Receipts")) || [];
 
 // Create formatted Date
 let reDate = new Date();
@@ -106,7 +106,6 @@ let formattedDate = reDate.toLocaleDateString('en-GB');
 
 
 function createReciept(name, price, DATE) {
-
 
 
 // Create elements
@@ -120,8 +119,6 @@ let pricePara = document.createElement('p');
 
 // Add classNames
 reciept.className = 'reciept';
-
-console.log("Phase Two");
 
 // Change values
 datePara.textContent = `${DATE}`;
@@ -149,8 +146,6 @@ let rec = {
     Date: DATE
 };
 
-console.log("Phase Three");
-
 receipts.push(rec);
 
 
@@ -163,6 +158,7 @@ function resetDate(a) {
         console.log("Deleting Now....")
         return true
     }
+
 }
 
 
@@ -181,6 +177,8 @@ function RenderItems() {
     
     }
 
+    receipts = receipts.filter(rec => rec.Date === formattedDate);
+    localStorage.setItem("Receipts", JSON.stringify(receipts));
 
     receipts.forEach(rec => {
     rWrapper.innerHTML = "";
